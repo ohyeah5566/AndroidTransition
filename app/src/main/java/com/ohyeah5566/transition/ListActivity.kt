@@ -1,18 +1,14 @@
 package com.ohyeah5566.transition
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.findNavController
 import com.ohyeah5566.transition.databinding.ListFragmentBinding
 
-class ListFragment : Fragment() {
+class ListActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ListFragmentBinding.inflate(layoutInflater)
@@ -31,16 +27,9 @@ class ListFragment : Fragment() {
     )
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
         for (i in 0..2) {
             val item = items[i]
             with(listItem[i]) {
@@ -48,23 +37,22 @@ class ListFragment : Fragment() {
                 description.text = item.desc
                 imageView.setBackgroundColor(
                     ContextCompat.getColor(
-                        requireContext(),
+                        this@ListActivity,
                         item.color
                     )
                 )
                 root.setOnClickListener {
                     root.transitionName = item.name
-                    val extras = FragmentNavigatorExtras(
-                        root to item.name
-//                        name to item.name 有重複會crash
+                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        this@ListActivity,
+                        root,
+                        item.name
                     )
-                    findNavController().navigate(
-                        ListFragmentDirections.showUser(item), extras
-                    )
-
+                    val intent = Intent(this@ListActivity, ProfileActivity::class.java)
+                    intent.putExtra("item", item)
+                    startActivity(intent, options.toBundle())
                 }
             }
-
         }
     }
 }
