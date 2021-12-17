@@ -30,6 +30,7 @@ class ListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        supportActionBar?.title = "ListActivity"
         for (i in 0..2) {
             val item = items[i]
             with(listItem[i]) {

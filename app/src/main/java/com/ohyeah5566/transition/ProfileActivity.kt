@@ -17,6 +17,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        supportActionBar?.title = "ProfileActivity"
 
         val item = intent.getParcelableExtra<Item>("item")!!
         binding.item.root.transitionName = item.name
