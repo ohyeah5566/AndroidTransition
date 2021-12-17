@@ -1,6 +1,8 @@
 package com.ohyeah5566.transition
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -20,14 +22,21 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.title = "ProfileActivity"
 
         val item = intent.getParcelableExtra<Item>("item")!!
-        binding.item.root.transitionName = item.name
-        binding.item.name.text = item.name
-        binding.item.description.text = item.desc
-        binding.item.imageView.setBackgroundColor(
-            ContextCompat.getColor(
-                this,
-                item.color
+        with(binding) {
+            Log.d("ProfileActivity", item.name)
+            tvName.text = item.name
+            tvDesc.text = item.desc
+            imageView.setBackgroundColor(
+                ContextCompat.getColor(
+                    this@ProfileActivity,
+                    item.color
+                )
             )
-        )
+
+            tvName.transitionName = item.name//textView 如果名稱只是name 會有問題 怪怪的
+            tvDesc.transitionName = item.desc
+            imageView.transitionName = item.color.toString()
+        }
+
     }
 }

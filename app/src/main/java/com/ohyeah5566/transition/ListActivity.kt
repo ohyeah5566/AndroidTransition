@@ -2,7 +2,7 @@ package com.ohyeah5566.transition
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
@@ -43,11 +43,12 @@ class ListActivity : AppCompatActivity() {
                     )
                 )
                 root.setOnClickListener {
-                    root.transitionName = item.name
+                    Log.d("ListActivity",item.name)
                     val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         this@ListActivity,
-                        root,
-                        item.name
+                        androidx.core.util.Pair(name, item.name),
+                        androidx.core.util.Pair(description, item.desc),
+                        androidx.core.util.Pair(imageView, item.color.toString())
                     )
                     val intent = Intent(this@ListActivity, ProfileActivity::class.java)
                     intent.putExtra("item", item)
