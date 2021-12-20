@@ -5,5 +5,10 @@
 ### Activity
 ![Activity transition](gif/transitionActivity.gif)
 
+ActivityOptionsCompat.makeSceneTransitionAnimation
+
+
 ### Fragment
 ![Fragment transition](gif/transitionFragment.gif)
+
+要設定兩邊view相同的transitionName 和 FragmentNavigatorExtras
